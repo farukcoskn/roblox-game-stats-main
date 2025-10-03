@@ -45,7 +45,7 @@ class App extends React.Component {
 
     this.refreshInterval = setInterval(() => {
       this.refresh();
-    }, 15000);
+    }, 5000);
   }
 
   componentWillUnmount() {
