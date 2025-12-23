@@ -1,54 +1,95 @@
 .card {
-    background-color: var(--background-color-light);
+  background-color: var(--surface-0);
+  width: 100%;
+  max-width: none;
+  height: auto;
+
+  border-radius: 12px;
+  border: 1px solid var(--border-0);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  text-decoration: none;
+
+  opacity: 0;
+  transform: translateY(14px) scale(0.99);
+  filter: blur(6px);
+  transition: opacity 650ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 650ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 650ms cubic-bezier(0.2, 0.8, 0.2, 1), background-color 180ms ease,
+    border-color 180ms ease;
+  transition-delay: var(--reveal-delay, 0ms);
+
+  &.is-revealed {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+    filter: blur(0px);
+  }
+
+  &:hover {
+    background-color: var(--surface-1);
+    border-color: var(--border-1);
+    transform: translateY(-2px) scale(1);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+
+  .container {
+    width: calc(100% - 20px);
+    padding: 10px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  b {
+    font-family: "Mona-Sans Medium Wide", "Mona-Sans", sans-serif;
+  }
+
+  .info {
+    margin-top: 5px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .thumbnail {
     width: 100%;
-    max-width: 424px;
-    height: auto;
+    height: 160px;
 
-    border-radius: 5px;
+    object-fit: cover;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid var(--border-0);
+  }
 
-    .container {
-        width: calc(100% - 20px);
-        padding: 10px;
+  .name {
+    font-size: 18px;
+    line-height: 1.25;
+  }
 
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  .playing,
+  .visits,
+  .favorites {
+    font-size: 13px;
+    color: var(--text-1);
+  }
 
-    b {
-        font-family: "Mona-Sans Wide", sans-serif;   
-    }
+  user-select: none;
+}
 
-
-
-    .info {
-        margin-top: 5px;
-
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
-    .thumbnail {
-        width: 100%;
-        height: 200px;
-        
-        object-fit: cover;
-
-        border-radius: 5px;
-    }
-
-    .name {
-        font-size: 24px;
-    }
-
-    .playing, .visits, .favorites {
-        font-size: 16px;
-    }
-
-    user-select: none;
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
 }

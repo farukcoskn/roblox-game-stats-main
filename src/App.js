@@ -13,31 +13,55 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.listRef = React.createRef();
+
     this.state = {
       gameInfo: {},
       analytics: {
         playing: 0,
         visits: 0,
       },
+      loaded: false,
     };
   }
 
-  refresh = () => {
-    Roblox.getGameInfo(Games).then((info) => {
-      if (
-        info == null ||
-        info.mainData == null ||
-        info.totalAnalytics == null
-      ) {
-        return;
-      }
-
-      this.setState({
-        gameInfo: info.mainData,
-        analytics: info.totalAnalytics,
-        loaded: true,
+  scrollToList = () => {
+    if (this.listRef && this.listRef.current) {
+      this.listRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
-    });
+    }
+  };
+
+  refresh = () => {
+    Roblox.getGameInfo(Games)
+      .then((info) => {
+        if (!info || typeof info !== "object") return;
+        if (!info.mainData || typeof info.mainData !== "object") return;
+        if (!info.totalAnalytics || typeof info.totalAnalytics !== "object")
+          return;
+
+        const nextKeys = Object.keys(info.mainData);
+        if (nextKeys.length === 0) return;
+
+        const nextPlaying = Number(info.totalAnalytics.playing);
+        const nextVisits = Number(info.totalAnalytics.visits);
+        if (!Number.isFinite(nextPlaying) || !Number.isFinite(nextVisits))
+          return;
+
+        this.setState((prev) => ({
+          gameInfo: info.mainData,
+          analytics: {
+            playing: nextPlaying,
+            visits: nextVisits,
+          },
+          loaded: prev.loaded || true,
+        }));
+      })
+      .catch(() => {
+        // Keep last good state on transient failures.
+      });
   };
 
   componentDidMount() {
@@ -57,24 +81,45 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <h3>Faruk's Games</h3>
-        <p>Look at all those numbers go!</p>
-        <p>
-          <b>
-            <RollingNumber goal={this.state.analytics.playing} />
-          </b>{" "}
-          Players |{" "}
-          <b>
-            <RollingNumber goal={this.state.analytics.visits} />
-          </b>{" "}
-          Total Visits
-        </p>
+        <header className="hero">
+          <div className="hero-content">
+            <div className="pill">Live Roblox stats</div>
+            <h1 className="hero-title">
+              Accelerate Your
+              <br />
+              <span className="hero-title-accent">Game Intelligence</span>
+            </h1>
+            <p className="hero-subtitle">
+              Highly personalized game analytics, refreshed in real time.
+            </p>
+            <div className="hero-actions">
+              <button className="btn btn-primary" onClick={this.scrollToList}>
+                Get started
+              </button>
+            </div>
 
-        <div className="spacer" />
+            <div className="hero-metrics">
+              <div className="metric">
+                <div className="metric-value">
+                  <RollingNumber goal={this.state.analytics.playing} />
+                </div>
+                <div className="metric-label">Players</div>
+              </div>
+              <div className="metric">
+                <div className="metric-value">
+                  <RollingNumber goal={this.state.analytics.visits} />
+                </div>
+                <div className="metric-label">Total visits</div>
+              </div>
+            </div>
+          </div>
+        </header>
 
-        <div className="game-list">
+        <div className="spacer" aria-hidden="true" />
+
+        <div className="game-list" ref={this.listRef}>
           {this.state.loaded ? null : (
-            <div class="lds-ellipsis">
+            <div className="lds-ellipsis">
               <div></div>
               <div></div>
               <div></div>
@@ -83,14 +128,14 @@ class App extends React.Component {
           )}
           {Object.values(this.state.gameInfo)
             .sort((a, b) => b.playing - a.playing)
-            .map((info) => {
-              return <Card info={info} key={info.gameId} />;
+            .map((info, index) => {
+              return <Card info={info} index={index} key={info.gameId} />;
             })}
         </div>
 
         <img
-          src="NZoA_RGB_Game Sector Logo_WhiteText.png"
-          alt="Game Sector Logo"
+          src={`${process.env.PUBLIC_URL}/logo.png`}
+          alt="Logo"
           className="game-sector-logo"
           width="513px"
           height="438px"

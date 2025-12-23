@@ -1,90 +1,170 @@
 :root {
-    --background-color: #111317;
-    --background-color-light: #181b20;
-    --background-color-lighter: #21252c;
+  /* Core (modern dark) */
+  --bg-0: #070710;
+  --bg-1: #0d0a1a;
 
-    --discord-button-color: #6370F4;
-    --roblox-button-color: linear-gradient(195.36deg, #FEFFFF 16.35%, #A0ADBD 83.24%);
-    --special-button-color: linear-gradient(97.53deg, #00DBDB -0.1%, #00E591 99.9%);
+  --surface-0: #11151b;
+  --surface-1: #151b22;
+  --surface-2: #1b232d;
 
-    --blur-color: hsla(0, 0%, 0%, 0.25);
+  --border-0: rgba(255, 255, 255, 0.08);
+  --border-1: rgba(255, 255, 255, 0.12);
 
-    --text-color: #FFFFFF;
-    --text-alt-color: #000000;
-    --highlight-color: #41c3f7;
+  --text-0: rgba(255, 255, 255, 0.94);
+  --text-1: rgba(255, 255, 255, 0.78);
+  --text-2: rgba(255, 255, 255, 0.6);
+
+  --accent-0: #7a5cff;
+  --accent-1: #ab7bff;
+
+  --bg-gradient: radial-gradient(
+      1200px 600px at 20% 0%,
+      rgba(122, 92, 255, 0.28) 0%,
+      rgba(122, 92, 255, 0) 60%
+    ),
+    radial-gradient(
+      900px 520px at 85% 10%,
+      rgba(171, 123, 255, 0.22) 0%,
+      rgba(171, 123, 255, 0) 62%
+    ),
+    radial-gradient(
+      1000px 700px at 55% 110%,
+      rgba(203, 169, 255, 0.12) 0%,
+      rgba(203, 169, 255, 0) 60%
+    ),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1));
+
+  /* Back-compat */
+  --background-color: var(--bg-0);
+  --background-color-light: var(--surface-0);
+  --background-color-lighter: var(--surface-2);
+
+  --discord-button-color: #6370f4;
+  --roblox-button-color: linear-gradient(
+    195.36deg,
+    #feffff 16.35%,
+    #a0adbd 83.24%
+  );
+  --special-button-color: linear-gradient(
+    97.53deg,
+    #00dbdb -0.1%,
+    #00e591 99.9%
+  );
+
+  --blur-color: hsla(0, 0%, 0%, 0.25);
+
+  --text-color: var(--text-0);
+  --text-alt-color: #000000;
+  --highlight-color: var(--accent-0);
+
+  --focus-ring: 0 0 0 3px rgba(122, 92, 255, 0.35);
 }
 
 @font-face {
-    font-family: 'Mona-Sans Medium';
-    src:
-      url('/Fonts/Mona Sans/WOFF 2/Mona-Sans-Medium.woff2') format('woff2 supports variations'),
-      url('/Fonts/Mona Sans/WOFF 2/Mona-Sans-Medium.woff2') format('woff2-variations');
-    font-weight: 200 900;
-    font-stretch: 75% 125%;
+  font-family: "Mona-Sans Medium";
+  src: url("/Fonts/Mona Sans/WOFF 2/Mona-Sans-Medium.woff2")
+      format("woff2 supports variations"),
+    url("/Fonts/Mona Sans/WOFF 2/Mona-Sans-Medium.woff2")
+      format("woff2-variations");
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
 }
 
 @font-face {
-    font-family: 'Mona-Sans Black Wide';
-    src:
-      url('/Fonts/Mona Sans/WOFF 2/Mona-Sans-BlackWide.woff2') format('woff2 supports variations'),
-      url('/Fonts/Mona Sans/WOFF 2/Mona-Sans-BlackWide.woff2') format('woff2-variations');
-    font-weight: 200 900;
-    font-stretch: 75% 125%;
+  font-family: "Mona-Sans Black Wide";
+  src: url("/Fonts/Mona Sans/WOFF 2/Mona-Sans-BlackWide.woff2")
+      format("woff2 supports variations"),
+    url("/Fonts/Mona Sans/WOFF 2/Mona-Sans-BlackWide.woff2")
+      format("woff2-variations");
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
 }
 
 @font-face {
-    font-family: 'Mona-Sans';
-    src:
-      url('/Fonts/Mona Sans/Mona-Sans.woff2') format('woff2 supports variations'),
-      url('/Fonts/Mona Sans/Mona-Sans.woff2') format('woff2-variations');
-    font-weight: 200 900;
-    font-stretch: 75% 125%;
+  font-family: "Mona-Sans";
+  src: url("/Fonts/Mona Sans/Mona-Sans.woff2")
+      format("woff2 supports variations"),
+    url("/Fonts/Mona Sans/Mona-Sans.woff2") format("woff2-variations");
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
 }
 
 @font-face {
-    font-family: 'Mona-Sans Medium Wide';
-    src:
-      url('/Fonts/Mona Sans/WOFF 2/Mona-Sans-MediumWide.woff2') format('woff2 supports variations'),
-      url('/Fonts/Mona Sans/WOFF 2/Mona-Sans-MediumWide.woff2') format('woff2-variations');
-    font-weight: 200 900;
-    font-stretch: 75% 125%;
+  font-family: "Mona-Sans Medium Wide";
+  src: url("/Fonts/Mona Sans/WOFF 2/Mona-Sans-MediumWide.woff2")
+      format("woff2 supports variations"),
+    url("/Fonts/Mona Sans/WOFF 2/Mona-Sans-MediumWide.woff2")
+      format("woff2-variations");
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
 }
 
 html {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  color-scheme: dark;
 }
 
-html, body, #root, .app {
-    background-color: var(--background-color);  
-    margin: 0px;
-    font-family: "Mona-Sans", sans-serif;   
-    scrollbar-color: var(--highlight-color) #0000003b;
-    scrollbar-width: thin;  
-    ::-webkit-scrollbar {
-        width: 10px;
-    }   
-    ::-webkit-scrollbar-track {
-        background: #0000003b;
-    }   
-    ::-webkit-scrollbar-thumb {
-        background-color: var(--highlight-color);
-        border-radius: 20px;
-        border: 3px solid #0000003b;
-    }
+html,
+body,
+#root,
+.app {
+  background-color: var(--background-color);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  margin: 0px;
+  font-family: "Mona-Sans", sans-serif;
+  scrollbar-color: var(--highlight-color) #0000003b;
+  scrollbar-width: thin;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0000003b;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--highlight-color);
+    border-radius: 20px;
+    border: 3px solid #0000003b;
+  }
 
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
-h1, h2, h3, p, b {
-    margin: 0;
-    padding: 0;
+body {
+  display: flex;
+  justify-content: center;
+}
 
-    color: var(--text-color);
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+p,
+b {
+  margin: 0;
+  padding: 0;
+
+  color: var(--text-color);
+}
+
+p {
+  color: var(--text-1);
 }
 
 a {
-    color: inherit;
-    text-decoration: inherit;
+  color: inherit;
+  text-decoration: inherit;
 }
