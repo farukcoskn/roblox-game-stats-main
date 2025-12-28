@@ -1,90 +1,98 @@
 let Roblox = {};
 
-Roblox.PROXY_URL = "https://jandel-backend.onrender.com/"
-Roblox.SECRET = "jandelgames" // Not really that "secret", just how the backend works.
+Roblox.PROXY_URL = "https://jandel-backend.onrender.com/";
+Roblox.SECRET = "jandelgames"; // Not really that "secret", just how the backend works.
 
-Roblox.proxyFetch = async function(sub_url, data) {
-    let result = await fetch(this.PROXY_URL + sub_url + "?secret=jandelgames" + data).catch((err) => {
-        console.log(err);
+Roblox.proxyFetch = async function (sub_url, data) {
+  let result = await fetch(
+    this.PROXY_URL + sub_url + "?secret=jandelgames" + data
+  ).catch((err) => {
+    console.log(err);
 
-        return null;
-    })
+    return null;
+  });
 
-    if (!result) {
-        return null;
-    }
+  if (!result) {
+    return null;
+  }
 
-    if (result.status !== 200) {
-        console.log(result.status, await result.text());
+  if (result.status !== 200) {
+    console.log(result.status, await result.text());
 
-        return null;
-    }
+    return null;
+  }
 
-    return result;
-}
+  return result;
+};
 
 Roblox.getGameInfo = async function (placeIds) {
-    // Since Roblox added a data limit to their API without saying a thing, we have to split the requests into 25 games each.
+  // Since Roblox added a data limit to their API without saying a thing, we have to split the requests into 25 games each.
 
-    let combined_info = {
-        info: {
-            data: []
-        },
-        thumbnails: {
-            data: []
-        }
-    };
+  let combined_info = {
+    info: {
+      data: [],
+    },
+    thumbnails: {
+      data: [],
+    },
+  };
 
-    for (let i = 0; i < placeIds.length; i += 25) {
-        let info = await this.proxyFetch("jandelgames", `&games=${placeIds.slice(i, i + 25).join(",")}`);
+  for (let i = 0; i < placeIds.length; i += 25) {
+    let info = await this.proxyFetch(
+      "jandelgames",
+      `&games=${placeIds.slice(i, i + 25).join(",")}`
+    );
 
-        if (!info) {
-            return false;
-        }
-
-        info = await info.json();
-
-        for (let key in info.info.data) {
-            combined_info.info.data.push(info.info.data[key]);
-        }
-
-        for (let key in info.thumbnails.data) {
-            combined_info.thumbnails.data.push(info.thumbnails.data[key]);
-        }
+    if (!info) {
+      return false;
     }
 
-    let data = {};
-    let totalPlaying = 0;
-    let totalVisits = 0;
+    info = await info.json();
 
-    combined_info.info.data.forEach((gameInfo) => {
-        data[gameInfo.id] = {
-            name: gameInfo.name,
-            playing: gameInfo.playing,
-            visits: gameInfo.visits,
-            favorites: gameInfo.favoritedCount,
-            gameId: gameInfo.rootPlaceId
-        };
+    for (let key in info.info.data) {
+      combined_info.info.data.push(info.info.data[key]);
+    }
 
-        totalPlaying += gameInfo.playing;
-        totalVisits += gameInfo.visits;
-    });
+    for (let key in info.thumbnails.data) {
+      combined_info.thumbnails.data.push(info.thumbnails.data[key]);
+    }
+  }
 
-    combined_info.thumbnails.data.forEach((thumb) => {
-        if (!data[thumb.universeId]) {
-            return;
-        }
+  let data = {};
+  let totalPlaying = 0;
+  let totalVisits = 0;
 
-        data[thumb.universeId].thumbnail = thumb.thumbnails[0]?.imageUrl;
-    });
-
-    return {
-        mainData: data,
-        totalAnalytics: {
-            playing: totalPlaying,
-            visits: totalVisits
-        }
+  combined_info.info.data.forEach((gameInfo) => {
+    const createdAt = gameInfo.created ? Date.parse(gameInfo.created) : 0;
+    data[gameInfo.id] = {
+      name: gameInfo.name,
+      playing: gameInfo.playing,
+      visits: gameInfo.visits,
+      favorites: gameInfo.favoritedCount,
+      created: gameInfo.created,
+      createdAt: Number.isFinite(createdAt) ? createdAt : 0,
+      gameId: gameInfo.rootPlaceId,
     };
-}
 
-export default Roblox
+    totalPlaying += gameInfo.playing;
+    totalVisits += gameInfo.visits;
+  });
+
+  combined_info.thumbnails.data.forEach((thumb) => {
+    if (!data[thumb.universeId]) {
+      return;
+    }
+
+    data[thumb.universeId].thumbnail = thumb.thumbnails[0]?.imageUrl;
+  });
+
+  return {
+    mainData: data,
+    totalAnalytics: {
+      playing: totalPlaying,
+      visits: totalVisits,
+    },
+  };
+};
+
+export default Roblox;

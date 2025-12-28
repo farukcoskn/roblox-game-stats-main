@@ -12,6 +12,61 @@
   color: var(--text-0);
 }
 
+.theme-toggle {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 60;
+  display: inline-flex;
+  border: 1px solid var(--border-0);
+  background: var(--panel-0);
+  border-radius: 999px;
+  padding: 6px;
+  gap: 6px;
+  backdrop-filter: blur(10px);
+}
+
+.theme-option {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-1);
+  font-family: "Mona-Sans Medium Wide", "Mona-Sans", sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  padding: 9px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease,
+    color 180ms ease, transform 180ms ease;
+}
+
+.theme-option:hover {
+  background: var(--hover-0);
+  color: var(--text-0);
+}
+
+.theme-option:active {
+  transform: scale(0.99);
+}
+
+.theme-option:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.theme-option.is-active {
+  color: rgba(255, 255, 255, 0.94);
+  background: rgba(122, 92, 255, 0.18);
+  border-color: rgba(122, 92, 255, 0.28);
+}
+
+html[data-theme="light"] .theme-option.is-active {
+  color: var(--text-0);
+  background: rgba(122, 92, 255, 0.14);
+  border-color: rgba(122, 92, 255, 0.22);
+}
+
 .hero {
   width: 100%;
   max-width: 100%;
@@ -70,7 +125,7 @@
   padding: 8px 12px;
   border-radius: 999px;
   border: 1px solid var(--border-0);
-  background: rgba(17, 21, 27, 0.55);
+  background: var(--panel-0);
   color: var(--text-1);
   font-size: 13px;
   line-height: 1;
@@ -164,7 +219,7 @@
 
 .metric {
   border: 1px solid var(--border-0);
-  background: rgba(17, 21, 27, 0.55);
+  background: var(--panel-0);
   border-radius: 14px;
   padding: 12px 14px;
   min-width: 210px;
@@ -186,6 +241,164 @@
   width: 100%;
   border-top: 1px solid var(--border-0);
   margin: 18px 0 8px;
+}
+
+.list-toolbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sort-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border-0);
+  background: var(--panel-0);
+  border-radius: 999px;
+  padding: 10px 12px;
+}
+
+.sort-label {
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.sort-dropdown {
+  position: relative;
+}
+
+.sort-direction {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 6px;
+  border-left: 1px solid var(--border-0);
+}
+
+.sort-dir-btn {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-1);
+  font-family: "Mona-Sans Medium Wide", "Mona-Sans", sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  padding: 8px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease,
+    color 180ms ease, transform 180ms ease;
+  white-space: nowrap;
+}
+
+.sort-dir-btn:hover {
+  background: var(--hover-0);
+  color: var(--text-0);
+}
+
+.sort-dir-btn:active {
+  transform: scale(0.99);
+}
+
+.sort-dir-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.sort-dir-btn.is-selected {
+  color: rgba(255, 255, 255, 0.94);
+  background: rgba(122, 92, 255, 0.18);
+  border-color: rgba(122, 92, 255, 0.28);
+}
+
+html[data-theme="light"] .sort-dir-btn.is-selected {
+  color: var(--text-0);
+  background: rgba(122, 92, 255, 0.14);
+  border-color: rgba(122, 92, 255, 0.22);
+}
+
+.sort-trigger {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-0);
+  font-family: "Mona-Sans Medium Wide", "Mona-Sans", sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 6px 28px 6px 10px;
+  border-radius: 999px;
+  transition: background-color 180ms ease, border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.sort-trigger::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--text-2);
+  border-bottom: 2px solid var(--text-2);
+  transform: translateY(-60%) rotate(45deg);
+  pointer-events: none;
+}
+
+.sort-control:hover .sort-trigger {
+  background: var(--hover-0);
+  border-color: var(--border-0);
+}
+
+.sort-trigger:active {
+  transform: scale(0.99);
+}
+
+.sort-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.sort-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  min-width: 210px;
+  border: 1px solid var(--border-0);
+  border-radius: 14px;
+  background: var(--popover-0);
+  overflow: hidden;
+  z-index: 20;
+}
+
+.sort-option {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  padding: 12px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-1);
+  font-family: "Mona-Sans Medium Wide", "Mona-Sans", sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.sort-option:hover {
+  background: var(--hover-1);
+  color: var(--text-0);
+}
+
+.sort-option.is-selected {
+  color: rgba(255, 255, 255, 0.94);
+  background: rgba(122, 92, 255, 0.18);
+}
+
+.sort-option:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgba(122, 92, 255, 0.55);
 }
 
 .game-list {
