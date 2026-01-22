@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/roblox-game-stats-main/static/css/main.bd26b0ba.css",
-    "main.js": "/roblox-game-stats-main/static/js/main.7d8d34a5.js",
+    "main.js": "/roblox-game-stats-main/static/js/main.b26fd5f0.js",
     "static/media/Mona-Sans.woff2": "/roblox-game-stats-main/static/media/Mona-Sans.955a87eb3766a32ac970.woff2",
     "static/media/Mona-Sans-MediumWide.woff2": "/roblox-game-stats-main/static/media/Mona-Sans-MediumWide.5d54c6d8789c1cfa5201.woff2",
     "static/media/Mona-Sans-BlackWide.woff2": "/roblox-game-stats-main/static/media/Mona-Sans-BlackWide.0a0727acefaafffee951.woff2",
     "static/media/Mona-Sans-Medium.woff2": "/roblox-game-stats-main/static/media/Mona-Sans-Medium.1d13d02c97c2fffe114f.woff2",
     "index.html": "/roblox-game-stats-main/index.html",
     "main.bd26b0ba.css.map": "/roblox-game-stats-main/static/css/main.bd26b0ba.css.map",
-    "main.7d8d34a5.js.map": "/roblox-game-stats-main/static/js/main.7d8d34a5.js.map"
+    "main.b26fd5f0.js.map": "/roblox-game-stats-main/static/js/main.b26fd5f0.js.map"
   },
   "entrypoints": [
     "static/css/main.bd26b0ba.css",
-    "static/js/main.7d8d34a5.js"
+    "static/js/main.b26fd5f0.js"
   ]
 }
